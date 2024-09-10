@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "back", "back", "{2A63F161-F9A1-4FAD-8C56-88C5F371FAC6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "front", "front", "{0B5DCEF4-C553-460C-91A9-99C0F9D283E0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestAuth.Back", "back\TestAuth.Back\TestAuth.Back.csproj", "{91D5FE85-44C0-4855-B91C-37C5AC752765}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "configs", "configs", "{BC5BD182-24BB-4399-B8F3-065514101339}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{91D5FE85-44C0-4855-B91C-37C5AC752765}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91D5FE85-44C0-4855-B91C-37C5AC752765}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91D5FE85-44C0-4855-B91C-37C5AC752765}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91D5FE85-44C0-4855-B91C-37C5AC752765}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{91D5FE85-44C0-4855-B91C-37C5AC752765} = {2A63F161-F9A1-4FAD-8C56-88C5F371FAC6}
+	EndGlobalSection
+EndGlobal
