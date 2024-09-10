@@ -6,6 +6,7 @@ EXPOSE 8081
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
+ENV DOTNET_NUGET_SIGNATURE_VERIFICATION=false
 WORKDIR /src
 COPY ["src/TestAuth.Api/TestAuth.Api.csproj", "src/TestAuth.Api/"]
 COPY ["src/TestAuth.Core/TestAuth.Core.csproj", "src/TestAuth.Core/"]

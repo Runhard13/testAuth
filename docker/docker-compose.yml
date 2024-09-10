@@ -11,9 +11,10 @@ services:
   mssql:
     container_name: 'test-auth-mssql'
     image: mcr.microsoft.com/mssql/server:2022-latest
+    user: root
     environment:
         ACCEPT_EULA: 'Y'
-        MSSQL_SA_PASSWORD: 'Password'
+        MSSQL_SA_PASSWORD: 'Pa$$w0rd123qq'
         MSSQL_DATA_DIR: /var/opt/mssql/data
         MSSQL_PID: 'Developer'
         MSSQL_TCP_PORT: 1433
@@ -26,6 +27,7 @@ services:
 
   api:
     container_name: 'test-auth-api'
+    image: 'test-auth-api'
     build:
       context: ../
       dockerfile: src/TestAuth.Api/Dockerfile
@@ -36,10 +38,11 @@ services:
       - "5010:5010"
 
   front:
-    container_name: "front"
+    container_name: "test-auth-front"
+    image: 'test-auth-front'
     build:
-      context: ../
-      dockerfile: src/TestAuth.Api/Client/Dockerfile
+      context: ../src/TestAuth.Api/Client
+      dockerfile: /Dockerfile
       args:
         - BASE_URL=api:5010
     ports:
