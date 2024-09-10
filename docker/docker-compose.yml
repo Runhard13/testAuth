@@ -1,0 +1,46 @@
+﻿networks:
+  default:
+    name: 'test-auth'
+
+volumes:
+  mssql-data:
+  mssql-log:
+  mssql-secrets:
+
+services:
+  mssql:
+    container_name: 'test-auth-mssql'
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+        ACCEPT_EULA: 'Y'
+        MSSQL_SA_PASSWORD: 'Password'
+        MSSQL_DATA_DIR: /var/opt/mssql/data
+        MSSQL_PID: 'Developer'
+        MSSQL_TCP_PORT: 1433
+    ports:
+        - "1433:1433"
+    volumes:
+        - mssql-data:/var/opt/mssql/data
+        - mssql-log:/var/opt/mssql/log
+        - mssql-secrets:/var/opt/mssql/secrets
+
+  api:
+    container_name: 'test-auth-api'
+    image: test-auth-api
+    build:
+      context: ../
+      dockerfile: src/TestAuth/Dockerfile
+      environment:
+        ASPNETCORE_ENVIRONMENT: Production
+        ASPNETCORE_URLS: http://*:5010
+      ports:
+        - "5010:5010"
+
+  front:
+    container_name: "front"
+    image: test-auth-front
+    build:
+      context: ../
+      dockerfile: src/TestAuth/Client/Dockerfile
+    ports:
+      - '3000:3000'

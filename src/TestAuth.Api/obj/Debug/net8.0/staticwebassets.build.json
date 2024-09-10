@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "hAaglbxaOvKb+PG1RsdAYb6KWh7OrhfoxIAH2lK2kCk=",
+  "Source": "TestAuth.Api",
+  "BasePath": "_content/TestAuth.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

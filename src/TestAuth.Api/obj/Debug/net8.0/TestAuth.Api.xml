@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TestAuth.Api</name>
+    </assembly>
+    <members>
+        <member name="M:TestAuth.Api.Controllers.AuthController.Login(TestAuth.Core.Usecases.Login.LoginUsecase,TestAuth.Core.Usecases.Login.Models.LoginRequest)">
+            <summary>
+            Получить токены для доступа к апи
+            </summary>
+            <response code="200">Аутентификация прошла успешно</response>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
