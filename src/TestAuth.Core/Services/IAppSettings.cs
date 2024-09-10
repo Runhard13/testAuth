@@ -2,6 +2,7 @@
 
 public interface IAppSettings
 {
+    string ConnectionString { get; init; }
     AuthSettings AuthSettings { get; init; }
 }
 

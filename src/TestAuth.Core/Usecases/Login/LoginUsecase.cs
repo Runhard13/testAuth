@@ -13,6 +13,9 @@ public class LoginUsecase(ILoginStorage storage, IPasswordService passwordServic
         if (user == null)
             return Result<LoginResponse>.Invalid().WithMessage("Неверный логин или пароль");
 
+        if (!user.IsActive)
+            return Result<LoginResponse>.Invalid().WithMessage("Неверный логин или пароль");
+
         bool isPasswordValid = passwordService.VerifyPassword(request.Password, user.PasswordHash, user.PasswordSalt);
         if (!isPasswordValid)
             return Result<LoginResponse>.Invalid().WithMessage("Неверный логин или пароль");

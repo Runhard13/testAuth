@@ -10,7 +10,7 @@ namespace TestAuth.Api.Controllers;
 public class AuthController : BaseController
 {
     /// <summary>
-    /// Получить токены для доступа к апи
+    /// Получить токен для доступа к апи
     /// </summary>
     /// <response code="200">Аутентификация прошла успешно</response>
     /// <returns></returns>
