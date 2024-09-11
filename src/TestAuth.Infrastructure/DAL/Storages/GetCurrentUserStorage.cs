@@ -15,7 +15,7 @@ public class GetCurrentUserStorage(IAppSettings settings) : IGetCurrentUserStora
     {
         using IDbConnection conn = new SqlConnection(settings.ConnectionString);
 
-        var query = "select Id, Username, IsActive from users where Id = @UserId";
+        const string query = "select id, username, is_active from users where id = @UserId";
         var parameters = new
         {
             UserId = id
