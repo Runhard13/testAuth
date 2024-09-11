@@ -1,9 +1,19 @@
-﻿namespace TestAuth.Infrastructure.DAL.InitializeDb;
+﻿using TestAuth.Core.Services;
+using TestAuth.Core.Usecases.CreateUser;
 
-public class DbInitializer
+namespace TestAuth.Infrastructure.DAL.InitializeDb;
+
+public class DbInitializer(CreateUserUsecase userCreator)
 {
-    public Task SeedDefaultDataToDb()
+    public async Task CreateDefaultUsers()
     {
-        return Task.CompletedTask;
+        var userCount = await userCreator.CountUsers();
+
+        if (userCount == 0)
+        {
+            await userCreator.CreateUsers()
+        }
     }
 }
+
+
