@@ -13,12 +13,41 @@ dist-ssr
 *.local
 
 # Editor directories and files
-.vscode/*
-!.vscode/extensions.json
 .idea
 .DS_Store
-*.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+*.swp
+*.*~
+project.lock.json
+*.pyc
+nupkg/
+artifacts/
+.vscode
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.[Dd]evelopment.json
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+.vs/
+x86/
+build/
+bld/
+[Bb]in/**
+[Oo]bj/**
+[Oo]ut/
+msbuild.log
+msbuild.err
+msbuild.wrn
+
