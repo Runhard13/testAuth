@@ -1,10 +1,10 @@
 using System.Data;
 using Dapper;
 using Microsoft.Data.SqlClient;
-using TestAuth.Core.Entities;
 using TestAuth.Core.Services;
 using TestAuth.Core.Usecases.GetCurrentUser.Interfaces;
 using TestAuth.Core.Usecases.GetCurrentUser.Models;
+using TestAuth.Infrastructure.DAL.Entities;
 
 namespace TestAuth.Infrastructure.DAL.Storages;
 
