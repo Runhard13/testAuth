@@ -3,27 +3,21 @@
     name: 'test-auth'
 
 volumes:
-  mssql-data:
-  mssql-log:
-  mssql-secrets:
+  db-data:
 
 services:
-  mssql:
-    container_name: 'test-auth-mssql'
-    image: mcr.microsoft.com/mssql/server:2022-latest
-    user: root
+  db:
+    container_name: 'test-auth-db'
+    image: postgres:16-alpine3.18
     environment:
-        ACCEPT_EULA: 'Y'
-        MSSQL_SA_PASSWORD: 'Pa$$w0rd123qq'
-        MSSQL_DATA_DIR: /var/opt/mssql/data
-        MSSQL_PID: 'Developer'
-        MSSQL_TCP_PORT: 1433
-    ports:
-        - "1433:1433"
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: public
     volumes:
-        - mssql-data:/var/opt/mssql/data
-        - mssql-log:/var/opt/mssql/log
-        - mssql-secrets:/var/opt/mssql/secrets
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - "5011:5432"
+
 
   api:
     container_name: 'test-auth-api'
@@ -46,4 +40,4 @@ services:
       args:
         - BASE_URL=api:5010
     ports:
-      - '3000:3000'
+      - '5012:3000'
