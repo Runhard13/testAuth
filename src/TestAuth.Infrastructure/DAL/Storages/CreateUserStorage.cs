@@ -1,6 +1,6 @@
 using System.Data;
 using Dapper;
-using Microsoft.Data.SqlClient;
+using Npgsql;
 using TestAuth.Core.Services;
 using TestAuth.Core.Usecases.CreateUser.Interfaces;
 using TestAuth.Core.Usecases.CreateUser.Models;
@@ -9,7 +9,7 @@ namespace TestAuth.Infrastructure.DAL.Storages;
 
 public class CreateUserStorage(IAppSettings settings) : ICreateUserStorage
 {
-    private readonly IDbConnection _conn = new SqlConnection(settings.ConnectionString);
+    private readonly IDbConnection _conn = new NpgsqlConnection(settings.ConnectionString);
 
     public async Task<int> CountUsers()
     {
@@ -17,10 +17,10 @@ public class CreateUserStorage(IAppSettings settings) : ICreateUserStorage
         return await _conn.ExecuteScalarAsync<int>(query);
     }
 
-    public async Task CreateUsers(IEnumerable<CreateUserRequest> request)
+    public async Task CreateUsers(IEnumerable<CreateUserModel> users)
     {
         const string query = "insert into users (username,password_salt, password_hash, is_active) VALUES (@Name, @Salt, @Hash, @IsActive)";
-        var users = request.Select(x => new
+        var queryParam = users.Select(x => new
         {
             Name = x.Username,
             Salt = x.PasswordSalt,
@@ -28,6 +28,6 @@ public class CreateUserStorage(IAppSettings settings) : ICreateUserStorage
             IsActive = true
         });
 
-        await _conn.ExecuteAsync(query, users);
+        await _conn.ExecuteAsync(query, queryParam);
     }
 }

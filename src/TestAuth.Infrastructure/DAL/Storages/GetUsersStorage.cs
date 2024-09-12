@@ -1,6 +1,6 @@
 using System.Data;
 using Dapper;
-using Microsoft.Data.SqlClient;
+using Npgsql;
 using TestAuth.Core.Services;
 using TestAuth.Core.Usecases.GetUsers.Interfaces;
 using TestAuth.Core.Usecases.GetUsers.Models;
@@ -12,7 +12,7 @@ public class GetUsersStorage(IAppSettings settings) : IGetUsersStorage
 {
     public async Task<List<UserModel>> GetUsers()
     {
-        using IDbConnection conn = new SqlConnection(settings.ConnectionString);
+        using IDbConnection conn = new NpgsqlConnection(settings.ConnectionString);
 
         const string query = "select id, username, is_active from users";
 

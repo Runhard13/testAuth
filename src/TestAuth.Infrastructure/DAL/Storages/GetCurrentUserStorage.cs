@@ -1,6 +1,6 @@
 using System.Data;
 using Dapper;
-using Microsoft.Data.SqlClient;
+using Npgsql;
 using TestAuth.Core.Services;
 using TestAuth.Core.Usecases.GetCurrentUser.Interfaces;
 using TestAuth.Core.Usecases.GetCurrentUser.Models;
@@ -13,7 +13,7 @@ public class GetCurrentUserStorage(IAppSettings settings) : IGetCurrentUserStora
 
     public async Task<GetCurrentUserResponse?> GetUserById(Guid id)
     {
-        using IDbConnection conn = new SqlConnection(settings.ConnectionString);
+        using IDbConnection conn = new NpgsqlConnection(settings.ConnectionString);
 
         const string query = "select id, username, is_active from users where id = @UserId";
         var parameters = new

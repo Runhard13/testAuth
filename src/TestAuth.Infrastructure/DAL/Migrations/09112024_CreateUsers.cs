@@ -11,11 +11,11 @@ public class CreateUsers : Migration
     {
         Create
             .Table("users")
-            .WithColumn("id").AsGuid().PrimaryKey().Identity()
-            .WithColumn("username").AsString().NotNullable()
+            .WithColumn("id").AsGuid().PrimaryKey().NotNullable().WithDefaultValue(RawSql.Insert("gen_random_uuid()"))
+            .WithColumn("username").AsString().NotNullable().Unique()
             .WithColumn("password_salt").AsString().NotNullable()
             .WithColumn("password_hash").AsString().NotNullable()
-            .WithColumn("is_active").AsBoolean().NotNullable();
+            .WithColumn("is_active").AsBoolean().NotNullable().WithDefaultValue(true);
     }
 
     public override void Down()

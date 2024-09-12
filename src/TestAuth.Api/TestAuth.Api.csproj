@@ -5,6 +5,7 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <GenerateDocumentationFile>True</GenerateDocumentationFile>
     </PropertyGroup>
 
     <ItemGroup>
@@ -14,29 +15,6 @@
     <ItemGroup>
       <ProjectReference Include="..\TestAuth.Core\TestAuth.Core.csproj" />
       <ProjectReference Include="..\TestAuth.Infrastructure\TestAuth.Infrastructure.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Filters\" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Content Include="..\..\.dockerignore">
-        <Link>.dockerignore</Link>
-      </Content>
-      <Content Remove="obj\**" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Compile Remove="obj\**" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <EmbeddedResource Remove="obj\**" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <None Remove="obj\**" />
     </ItemGroup>
 
 </Project>

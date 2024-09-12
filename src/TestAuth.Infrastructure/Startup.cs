@@ -48,8 +48,7 @@ public static class Startup
     {
         using var scope = services.CreateScope();
         var defaultInitializer = scope.ServiceProvider.GetRequiredService<DbInitializer>();
-
-        await defaultInitializer.SeedDefaultDataToDb();
+        await defaultInitializer.CreateDefaultUsers();
     }
 
 

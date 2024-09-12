@@ -1,6 +1,6 @@
 using System.Data;
 using Dapper;
-using Microsoft.Data.SqlClient;
+using Npgsql;
 using TestAuth.Core.Services;
 using TestAuth.Core.Usecases.Login.Interfaces;
 using TestAuth.Core.Usecases.Login.Models;
@@ -12,7 +12,7 @@ public class LoginStorage(IAppSettings settings) : ILoginStorage
 {
     public async Task<UserModel?> GetUserByUsername(string username)
     {
-        using IDbConnection conn = new SqlConnection(settings.ConnectionString);
+        using IDbConnection conn = new NpgsqlConnection(settings.ConnectionString);
 
         const string query = "select id, password_hash, password_salt, is_active from users where username = @UserName";
         var parameters = new
