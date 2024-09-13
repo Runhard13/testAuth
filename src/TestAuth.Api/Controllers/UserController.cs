@@ -5,6 +5,8 @@ using TestAuth.Core.Models;
 using TestAuth.Core.Usecases.GetCurrentUser;
 using TestAuth.Core.Usecases.GetCurrentUser.Models;
 using TestAuth.Core.Usecases.GetUsers;
+using TestAuth.Core.Usecases.UpdateUser;
+using TestAuth.Core.Usecases.UpdateUser.Models;
 using UserModel = TestAuth.Core.Usecases.GetUsers.Models.UserModel;
 
 namespace TestAuth.Api.Controllers;
@@ -35,6 +37,21 @@ public class UserController : BaseController
     public async Task<IActionResult> Login([FromServices] GetUsersUsecase useCase)
     {
         var result = await useCase.GetUsers();
+        return FromResult(result);
+    }
+
+    /// <summary>
+    /// Изменить данные пользователя
+    /// </summary>
+    /// <param name="useCase"></param>
+    /// <param name="request"></param>
+    /// <returns></returns>
+    [HttpPost("update")]
+    [AllowAnonymous]
+    [ProducesResponseType(typeof(ApiResponseModel), 200)]
+    public async Task<IActionResult> Гзвфеу([FromServices] UpdateUserUsecase useCase, UpdateUserRequest request)
+    {
+        var result = await useCase.UpdateUser(request);
         return FromResult(result);
     }
 }
