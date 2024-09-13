@@ -1,3 +1,4 @@
+import { useCurrentUser } from '@/entities/current-user'
 import Login from '@/pages/Login.vue'
 import Users from '@/pages/Users.vue'
 import Welcome from '@/pages/Welcome.vue'
@@ -16,6 +17,14 @@ const router = createRouter({
       path: routes.welcome(),
       name: 'welcome',
       component: Welcome,
+      beforeEnter: (to) => {
+        const { userData } = useCurrentUser()
+
+        if (!userData.value && to.name !== routes.login()) {
+          return { name: 'login' }
+        }
+      }
+      ,
     },
     {
       path: routes.users(),

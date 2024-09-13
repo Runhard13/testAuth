@@ -11,7 +11,9 @@
     "generate": "openapi --input http://localhost:5076/swagger/v1/swagger.json --output ./src/shared/api/test-auth-api/generated --name TestAuthApi"
   },
   "dependencies": {
+    "@radix-icons/vue": "^1.0.0",
     "@tanstack/vue-query": "^5.56.2",
+    "@tanstack/vue-table": "^8.20.5",
     "@vueuse/core": "^11.0.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
