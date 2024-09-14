@@ -41,7 +41,7 @@ services:
       context: ../src/TestAuth.Api/Client
       dockerfile: /Dockerfile
       args:
-        - BASE_URL=api:5010
+        - BASE_URL=http://localhost:5010
     restart: always
     ports:
       - '5012:3000'

@@ -9,6 +9,11 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
+      path: '/',
+      redirect: routes.login.pattern,
+    },
+
+    {
       path: routes.login.pattern,
       name: 'login',
       component: Login,

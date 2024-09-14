@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { User } from '@/entities/users'
-import { useCurrentUser } from '@/entities/current-user'
+
 import { useUserUpdateQuery } from '@/entities/users/api/useUsersQuery'
 import { Button } from '@/shared/ui/button'
 import { Checkbox } from '@/shared/ui/checkbox'
@@ -22,10 +22,9 @@ const props = defineProps<UserPopoverProps>()
 const open = ref(false)
 
 const isActive = ref(props.user.isActive)
-const { currentUser } = useCurrentUser()
 const queryClient = useQueryClient()
 
-const { mutate } = useUserUpdateQuery(queryClient, currentUser.value?.userId ?? '')
+const { mutate } = useUserUpdateQuery(queryClient)
 
 async function updateUser() {
   mutate({ id: props.user.id, username: props.user.username, isActive: isActive.value })
