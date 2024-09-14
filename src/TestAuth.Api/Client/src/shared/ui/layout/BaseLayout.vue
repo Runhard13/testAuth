@@ -2,8 +2,11 @@
 import { useCurrentUser } from '@/entities/current-user'
 import { RouterView } from 'vue-router'
 
-const { getCurrentUser } = useCurrentUser()
-await getCurrentUser()
+const { currentUser, getCurrentUser } = useCurrentUser()
+
+if (!currentUser.value) {
+  await getCurrentUser()
+}
 </script>
 
 <template>
