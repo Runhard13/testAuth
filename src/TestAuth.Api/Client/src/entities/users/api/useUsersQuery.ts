@@ -1,6 +1,6 @@
 import type { QueryClient } from '@tanstack/vue-query'
 import type { User } from '../model/user'
-import { currentUserKey } from '@/entities/current-user'
+import { useAuthentication } from '@/entities/current-user'
 import { useApiClient } from '@/shared/api'
 import { useMutation, useQuery } from '@tanstack/vue-query'
 import { MapUsers } from '../lib/userMappings'
@@ -24,6 +24,7 @@ export function useUsersQuery() {
   return { data, error }
 }
 
+const { logout } = useAuthentication()
 export function useUserUpdateQuery(queryClient: QueryClient, currentUserId: string) {
   const { isError, error, isSuccess, data, mutate } = useMutation({
     mutationFn: async (user: User) => {
@@ -33,12 +34,10 @@ export function useUserUpdateQuery(queryClient: QueryClient, currentUserId: stri
     },
 
     onSuccess: (data) => {
-      if (!data.data.errors) {
-        queryClient.invalidateQueries({ queryKey: userKeys.userList.root() })
-      }
+      queryClient.invalidateQueries({ queryKey: userKeys.userList.root() })
 
-      if (currentUserId === data.data.data?.id) {
-        queryClient.invalidateQueries({ queryKey: currentUserKey })
+      if (currentUserId === data.data.data?.id && !data.data.data.isActive) {
+        logout()
       }
     },
   })

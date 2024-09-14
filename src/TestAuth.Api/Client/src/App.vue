@@ -8,6 +8,8 @@ mode.value = 'dark'
 </script>
 
 <template>
-  <BaseLayout />
+  <Suspense>
+    <BaseLayout />
+  </Suspense>
   <Toaster />
 </template>

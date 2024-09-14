@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import type { User } from '@/entities/users'
+import { useCurrentUser } from '@/entities/current-user'
+import { useUserUpdateQuery } from '@/entities/users/api/useUsersQuery'
 import { Button } from '@/shared/ui/button'
-
 import { Checkbox } from '@/shared/ui/checkbox'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from '@/shared/ui/popover'
-
+import { useQueryClient } from '@tanstack/vue-query'
 import { SaveIcon } from 'lucide-vue-next'
 import { ref } from 'vue'
 
@@ -17,11 +18,23 @@ interface UserPopoverProps {
 }
 
 const props = defineProps<UserPopoverProps>()
+
+const open = ref(false)
+
 const isActive = ref(props.user.isActive)
+const { currentUser } = useCurrentUser()
+const queryClient = useQueryClient()
+
+const { mutate } = useUserUpdateQuery(queryClient, currentUser.value?.userId ?? '')
+
+async function updateUser() {
+  mutate({ id: props.user.id, username: props.user.username, isActive: isActive.value })
+  open.value = false
+}
 </script>
 
 <template>
-  <Popover @update:open="isActive = props.user.isActive">
+  <Popover v-model:open="open" @update:open="isActive = props.user.isActive">
     <PopoverTrigger as-child>
       <span class="text-blue-600 dark:text-blue-500 hover:underline cursor-pointer truncate">
         {{ user.username }}
@@ -49,7 +62,7 @@ const isActive = ref(props.user.isActive)
           </span>
           <Checkbox id="isActive" v-model:checked="isActive" />
         </div>
-        <Button variant="outline">
+        <Button variant="outline" @click="updateUser()">
           <SaveIcon class="w-4 h-4 mr-2" /> Save
         </Button>
       </div>

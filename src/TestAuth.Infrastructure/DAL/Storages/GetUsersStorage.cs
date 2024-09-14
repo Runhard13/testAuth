@@ -14,7 +14,7 @@ public class GetUsersStorage(IAppSettings settings) : IGetUsersStorage
     {
         using IDbConnection conn = new NpgsqlConnection(settings.ConnectionString);
 
-        const string query = "select id, username, is_active from users";
+        const string query = "select id, username, is_active from users order by username";
 
         var users = await conn.QueryAsync<User>(query);
 

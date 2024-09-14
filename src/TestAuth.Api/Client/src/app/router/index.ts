@@ -1,7 +1,7 @@
+import { useCurrentUser } from '@/entities/current-user'
 import Login from '@/pages/Login.vue'
 import Users from '@/pages/Users.vue'
 import Welcome from '@/pages/Welcome.vue'
-import { useStorage } from '@vueuse/core'
 import { createRouter, createWebHistory } from 'vue-router'
 import { routes } from './routes'
 
@@ -18,8 +18,8 @@ const router = createRouter({
       name: 'welcome',
       component: Welcome,
       beforeEnter: () => {
-        const token = useStorage('token', '', localStorage)
-        if (!token.value) {
+        const { currentUser } = useCurrentUser()
+        if (!currentUser.value) {
           return { name: 'login' }
         }
       },

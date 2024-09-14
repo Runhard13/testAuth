@@ -49,6 +49,7 @@ export interface UpdateUserRequest {
 export interface UpdateUserResponse {
   /** @format uuid */
   id?: string;
+  isActive?: boolean;
 }
 
 export interface UpdateUserResponseBaseApiResponseModel {

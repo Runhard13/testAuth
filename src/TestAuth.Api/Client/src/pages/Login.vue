@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import router from '@/app/router'
 import { routes } from '@/app/router/routes'
-import { useAuthentication } from '@/entities/current-user'
+import { useAuthentication, useCurrentUser } from '@/entities/current-user'
 import { Button } from '@/shared/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/shared/ui/card'
 import { Input } from '@/shared/ui/input'
@@ -11,18 +11,29 @@ import { ref } from 'vue'
 
 const username = ref('')
 const password = ref('')
+const isError = ref(false)
+const description = ref('Enter your username below to login to your account.')
 
-const { authenticate, token, isLoading } = useAuthentication()
+const { authenticate, isLoading } = useAuthentication()
+const { currentUser, getCurrentUser } = useCurrentUser()
 
-if (token.value) {
+if (currentUser.value) {
   router.push(routes.welcome())
 }
 
 async function login() {
-  await authenticate(username.value, password.value)
+  isError.value = false
 
-  if (token.value) {
+  await authenticate(username.value, password.value)
+  await getCurrentUser()
+
+  if (currentUser.value) {
     router.push(routes.welcome())
+  }
+  else {
+    isError.value = true
+    description.value = 'We could not log you in. Please check your username/password and try again'
+    password.value = ''
   }
 }
 </script>
@@ -34,8 +45,8 @@ async function login() {
         <CardTitle class="text-2xl">
           Login
         </CardTitle>
-        <CardDescription>
-          Enter your username below to login to your account.
+        <CardDescription :class="isError ? 'text-red-500' : ''">
+          {{ description }}
         </CardDescription>
       </CardHeader>
       <CardContent class="grid gap-4">
@@ -45,7 +56,7 @@ async function login() {
         </div>
         <div class="grid gap-2">
           <Label for="password">Password</Label>
-          <Input id="password" v-model="password" type="password" required />
+          <Input id="password" v-model="password" type="password" autocomplete="off" required />
         </div>
       </CardContent>
       <CardFooter>

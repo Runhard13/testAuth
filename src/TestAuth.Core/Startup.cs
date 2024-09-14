@@ -3,6 +3,7 @@ using TestAuth.Core.Usecases.CreateUser;
 using TestAuth.Core.Usecases.GetCurrentUser;
 using TestAuth.Core.Usecases.GetUsers;
 using TestAuth.Core.Usecases.Login;
+using TestAuth.Core.Usecases.UpdateUser;
 
 namespace TestAuth.Core;
 
@@ -14,6 +15,7 @@ public static class Startup
         services.AddScoped<CreateUserUsecase>();
         services.AddScoped<GetCurrentUserUsecase>();
         services.AddScoped<GetUsersUsecase>();
+        services.AddScoped<UpdateUserUsecase>();
         return services;
     }
 }

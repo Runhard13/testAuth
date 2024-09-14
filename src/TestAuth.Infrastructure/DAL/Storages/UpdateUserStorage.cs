@@ -42,6 +42,6 @@ public class UpdateUserStorage(IAppSettings settings) : IUpdateUserStorage
 
         await conn.ExecuteAsync(query, parameters);
 
-        return new UpdateUserResponse(request.UserId);
+        return new UpdateUserResponse(request.UserId, request.IsActive);
     }
 }
