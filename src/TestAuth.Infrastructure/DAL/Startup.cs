@@ -13,6 +13,8 @@ internal static class Startup
     {
         string connectionString = config.GetConnectionString("DBConnectionString") ?? throw new InternalServerException("Не задана строка подключения к БД");
 
+        Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
+
         var provider = services
             .AddFluentMigratorCore()
             .ConfigureRunner(rb => rb

@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { useCurrentUser } from '@/entities/current-user'
+import router from '@/app/router'
+import { routes } from '@/app/router/routes'
+import { useAuthentication } from '@/entities/current-user'
 import { Button } from '@/shared/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/shared/ui/card'
 import { Input } from '@/shared/ui/input'
@@ -10,7 +12,19 @@ import { ref } from 'vue'
 const username = ref('')
 const password = ref('')
 
-const { authenticate, isLoading } = useCurrentUser()
+const { authenticate, token, isLoading } = useAuthentication()
+
+if (token.value) {
+  router.push(routes.welcome())
+}
+
+async function login() {
+  await authenticate(username.value, password.value)
+
+  if (token.value) {
+    router.push(routes.welcome())
+  }
+}
 </script>
 
 <template>
@@ -35,7 +49,7 @@ const { authenticate, isLoading } = useCurrentUser()
         </div>
       </CardContent>
       <CardFooter>
-        <Button v-if="!isLoading" class="w-full" @click="authenticate(username, password)">
+        <Button v-if="!isLoading" class="w-full" @click="login()">
           Submit
         </Button>
         <Button v-else disabled class="w-full">

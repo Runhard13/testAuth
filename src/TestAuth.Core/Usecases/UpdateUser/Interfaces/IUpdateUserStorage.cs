@@ -6,5 +6,5 @@ namespace TestAuth.Core.Usecases.UpdateUser.Interfaces;
 public interface IUpdateUserStorage : IScopedService
 {
     Task<UserModel?> GetUserById(Guid id);
-    Task UpdateUser(UpdateUserRequest request);
+    Task<UpdateUserResponse> UpdateUser(UpdateUserRequest request);
 }

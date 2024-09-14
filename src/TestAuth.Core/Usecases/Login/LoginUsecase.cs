@@ -11,14 +11,14 @@ public class LoginUsecase(ILoginStorage storage, IPasswordService passwordServic
     {
         var user = await storage.GetUserByUsername(request.Username);
         if (user == null)
-            return Result<LoginResponse>.Invalid().WithMessage("Неверный логин или пароль");
+            return Result<LoginResponse>.Invalid().WithMessage("Please check your username/password and try again");
 
         if (!user.IsActive)
-            return Result<LoginResponse>.Invalid().WithMessage("Неверный логин или пароль");
+            return Result<LoginResponse>.Invalid().WithMessage("Please check your username/password and try again");
 
         bool isPasswordValid = passwordService.VerifyPassword(request.Password, user.PasswordHash, user.PasswordSalt);
         if (!isPasswordValid)
-            return Result<LoginResponse>.Invalid().WithMessage("Неверный логин или пароль");
+            return Result<LoginResponse>.Invalid().WithMessage("Please check your username/password and try again");
 
         string token = jwtService.GenerateAcceesToken(new GenerateTokenRequest(user.UserId));
         return Result<LoginResponse>.Success(new LoginResponse(token));

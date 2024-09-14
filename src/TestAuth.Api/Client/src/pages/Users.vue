@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { User } from '@/entities/users'
+
 import type {
   ColumnDef,
   ColumnFiltersState,
@@ -6,10 +8,10 @@ import type {
   SortingState,
   VisibilityState,
 } from '@tanstack/vue-table'
+import UserPopover from '@/components/users/UserPopover.vue'
 
 import { valueUpdater } from '@/shared/lib/utils'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/shared/ui/card'
-
 import {
   Table,
   TableBody,
@@ -30,12 +32,6 @@ import {
 } from '@tanstack/vue-table'
 import { h, ref } from 'vue'
 
-export interface User {
-  id: string
-  username: string
-  isActive: boolean
-}
-
 const data: User[] = [
   {
     id: 'm5gr84i9',
@@ -54,7 +50,7 @@ const columns: ColumnDef<User>[] = [
   {
     accessorKey: 'username',
     header: 'Username',
-    cell: ({ row }) => h('div', { class: 'capitalize' }, row.getValue('username')),
+    cell: ({ row }) => h(UserPopover, { user: row.original }),
   },
   {
     accessorKey: 'isActive',

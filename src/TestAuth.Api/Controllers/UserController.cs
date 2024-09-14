@@ -19,6 +19,7 @@ public class UserController : BaseController
     /// <param name="useCase"></param>
     /// <returns></returns>
     [HttpGet("current")]
+    [Authorize]
     [ProducesResponseType(typeof(BaseApiResponseModel<GetCurrentUserResponse>), 200)]
     public async Task<IActionResult> GetCurrentUser([FromServices] GetCurrentUserUsecase useCase)
     {
@@ -48,8 +49,8 @@ public class UserController : BaseController
     /// <returns></returns>
     [HttpPost("update")]
     [AllowAnonymous]
-    [ProducesResponseType(typeof(ApiResponseModel), 200)]
-    public async Task<IActionResult> Гзвфеу([FromServices] UpdateUserUsecase useCase, UpdateUserRequest request)
+    [ProducesResponseType(typeof(BaseApiResponseModel<UpdateUserResponse>), 200)]
+    public async Task<IActionResult> Update([FromServices] UpdateUserUsecase useCase, UpdateUserRequest request)
     {
         var result = await useCase.UpdateUser(request);
         return FromResult(result);

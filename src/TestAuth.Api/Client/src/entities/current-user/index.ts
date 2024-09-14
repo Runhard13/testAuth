@@ -1,1 +1,1 @@
-export { useCurrentUser } from './api/useCurrentUser'
+export { currentUserKey, useAuthentication, useCurrentUser } from './api/useAuthentication'

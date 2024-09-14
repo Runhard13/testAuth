@@ -11,7 +11,7 @@ public class CreateUserUsecase(ICreateUserStorage storage, IPasswordService pass
     {
         var users = from r in request
             let pwdData = passwordService.GeneratePasswordData(r.Password)
-            select new CreateUserModel(r.Username, pwdData.passwordSalt, pwdData.passwordSalt);
+            select new CreateUserModel(r.Username, pwdData.passwordSalt, pwdData.passwordHash);
 
         await storage.CreateUsers(users);
         return Result.Success();

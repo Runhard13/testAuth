@@ -12,8 +12,11 @@ public class GetCurrentUserUsecase(IGetCurrentUserStorage storage, IUserContextP
         var userContext = userProvider.GetUserContext();
         var user = await storage.GetUserById(userContext.Id);
 
-        return user == null
-            ? Result<GetCurrentUserResponse>.Invalid().WithMessage("Пользователь не найден")
-            : Result<GetCurrentUserResponse>.Success(user);
+        if (user == null)
+            return Result<GetCurrentUserResponse>.Invalid().WithMessage("User not found");
+
+        return user.IsActive
+            ? Result<GetCurrentUserResponse>.Success(user)
+            : Result<GetCurrentUserResponse>.Invalid().WithMessage("User not active");
     }
 }

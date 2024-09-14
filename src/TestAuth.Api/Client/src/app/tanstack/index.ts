@@ -1,8 +1,8 @@
-import type { ApiError } from '@/shared/api/sbis-connect/generated'
+import type { ApiResponseErrors } from '@/shared/api/test-auth-api/generated/TestAuthApi'
 import '@tanstack/vue-query'
 
 declare module '@tanstack/vue-query' {
   interface Register {
-    defaultError: ApiError
+    defaultError: ApiResponseErrors
   }
 }

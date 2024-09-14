@@ -46,7 +46,7 @@ public class ConfigureJwtBearerOptions(IAppSettings settings) : IConfigureNamedO
                 {
                     context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
                     await context.Response.WriteAsJsonAsync(
-                        Result.Unauthorized().WithMessage("Доступ только авторизованным пользователям").PackAsApiResponse()
+                        Result.Unauthorized().WithMessage("You must be authenticated to do that").PackAsApiResponse()
                     );
                 }
             },
@@ -54,7 +54,7 @@ public class ConfigureJwtBearerOptions(IAppSettings settings) : IConfigureNamedO
             {
                 context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
                 await context.Response.WriteAsJsonAsync(
-                    Result.PermissionDenied().WithMessage("Нет доступа").PackAsApiResponse()
+                    Result.PermissionDenied().WithMessage("Please make sure you have the correct access rights").PackAsApiResponse()
                 );
             },
             OnMessageReceived = context =>

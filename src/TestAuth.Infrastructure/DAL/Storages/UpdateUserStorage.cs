@@ -29,7 +29,7 @@ public class UpdateUserStorage(IAppSettings settings) : IUpdateUserStorage
             : new UserModel(user.Id);
     }
 
-    public async Task UpdateUser(UpdateUserRequest request)
+    public async Task<UpdateUserResponse> UpdateUser(UpdateUserRequest request)
     {
         using IDbConnection conn = new NpgsqlConnection(settings.ConnectionString);
 
@@ -41,5 +41,7 @@ public class UpdateUserStorage(IAppSettings settings) : IUpdateUserStorage
         };
 
         await conn.ExecuteAsync(query, parameters);
+
+        return new UpdateUserResponse(request.UserId);
     }
 }
